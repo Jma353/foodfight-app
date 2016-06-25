@@ -84,7 +84,19 @@ def destroy_users():
 socketio = SocketIO()
 socketio.init_app(app)
 
+# Socket testing 
+@socketio.on('connect', namespace='/main')
+def ws_conn():
+	socketio.emit('msg', "You are connected", namespace='/main')
 
+@socketio.on('disconnect', namespace='/main')
+def ws_disconn(): 
+	socketio.emit('msg', "Someone disconnected", namespace='/main')
+
+@socketio.on('new-user', namespace='/main')
+def chat(chat):
+	print chat
+	socketio.emit('new-user', chat, namespace="/main")
 
 
 

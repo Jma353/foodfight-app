@@ -38,11 +38,8 @@
 				// To make an AJAX request for JSON resources 
 				var users = []; 
 
-
-				// AJAX to obtain USER list 
 				$.ajax({
 					dataType: "json", 
-					url: window.hostname,
 					success: function (data) {
 						users = data; 
 						data.forEach(function (u) {
@@ -50,28 +47,34 @@
 						}); 
 					}
 				}); 	
+ 
+				// Socket init 
+				var socket = io.connect(window.location.origin + "/main"); 
 
-				// Socket communication 
-				var socket = io.connect(window.hostname + "/users"); 
 
-				$("form").submit(function () {
+				// Socket emit
+				$("form").submit(function (e) {
+					// Disable submission 
+					e.preventDefault(); 
 					// Grab name values + construct JSON 
 					var name = $('#name').val();
 					var email = $('#email').val(); 
 					var userJSON = { user: { name: name, email: email }}; 
 
 					// Emit socket info 
-					socket.emit('users', userJSON);
+					socket.emit('new-user', userJSON);
 
 					// Clear these values 
 					$('#name').val('');
 					$('#email').val(''); 
 				}); 
 
-				
 
-
-
+				// Socket receieve 
+				socket.on("new-user", function (data) {
+					var user = data.user; 
+					$('#users').append($("<li>").text(user.name + " | " + user.email)); 
+				}); 
 
 
 			}); 
