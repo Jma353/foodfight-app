@@ -49,12 +49,7 @@ db.register([User])
 def show_users():	
 	# Retrieve users 
 	users = db.User.find() 
-
-	# Build string to observe users 
-	user_string = "Users: \n"
-	for u in users: 
-		user_string += str(u) + "\n"
-	return user_string
+	return render_template("index.html")
 
 
 # Test route to create users 
