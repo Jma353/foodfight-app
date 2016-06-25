@@ -5,6 +5,14 @@ from yelp.oauth1_authenticator import Oauth1Authenticator
 import io, requests
 import json
 from pprint import pprint
+from random import randint 
+
+
+# All recommendation stuff 
+from recommendation import find_similar
+from search import restaurant_json
+from autocomplete import run 
+
 
 # Function to determine if a request is an API request for JSON or a standard resource request
 # Credit: http://flask.pocoo.org/snippets/45/
@@ -21,6 +29,24 @@ def read_json(path):
 		d = json.load(json_data)
 		json_data.close() 
 		return d 
+
+
+# Generate 5 restaurants for training 
+def gen_training_data(rest_hash): 
+	used = []
+	json_range = len(rest_hash.keys()) - 1
+	restaurants = []
+	while(len(restaurants) < 5):
+		i = randint(0, json_range)
+		if i not in used: 
+			# Append to used array 
+			used.append(i)
+			# Grab ID + fields 
+			bus_id = rest_hash.keys()[i]
+			bus_json = rest_hash[bus_id]
+			restaurants.append(bus_json)
+			
+	return restaurants
 
 
 # Yelp auth + client init 
@@ -68,6 +94,7 @@ def getYelpInfo(lat, long, term):
 		"review": review.business.reviews[0].excerpt
 	});
 	return responses
+
 
 
 

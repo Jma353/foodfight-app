@@ -14,7 +14,7 @@
 		<h4>Add a user here:</h4> 
 
 
-		<form action="">
+		<form action="" class="adduser">
 			<label>Name</label> </br> 
 			<input id="name"/> </br> 
 			<label>Email</label> </br> 
@@ -27,6 +27,15 @@
 
 		</ul>
 
+
+		<h4>Query:</h4> 
+		<form action="" class="query">
+			<input id="q"/></br> 
+			<button>Search</button>
+		</form>
+
+		<ul id="searchresults">
+		</ul> 
 
 
 		<!-- JS start --> 
@@ -53,7 +62,7 @@
 				var socket = io.connect(url + '/main');
 
 				// Socket emit
-				$("form").submit(function (e) {
+				$("form.adduser").submit(function (e) {
 					// Disable submission 
 					e.preventDefault(); 
 					// Grab name values + construct JSON 
@@ -70,11 +79,33 @@
 				}); 
 
 
+				$("form.query").submit(function (e) {
+					e.preventDefault(); 
+					var q = $('#q').val(); 
+					console.log(q); 
+					socket.emit('query', q); 
+					$('#q').val(''); 
+					$('#searchresults').empty(); 
+				}); 
+
+
 				// Socket receieve 
 				socket.on("new-user", function (data) {
 					var user = data.user; 
 					$('#users').append($("<li>").text(user.name + " | " + user.email)); 
 				}); 
+
+
+				socket.on('query-results', function (data) {
+					console.log(data); 
+					data.forEach(function (d) {
+						$('#searchresults').append($("<li>").text(d)); 
+					}); 
+				}); 
+
+
+				
+
 
 
 			}); 

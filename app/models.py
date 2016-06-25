@@ -19,6 +19,8 @@ class User(Document):
 		'name' : unicode, 
 		'email' : unicode, 
 		'image_url' : unicode, 
+		'likes' : list,
+		'dislikes' : list,
 		'created_at': datetime,
 		'updated_at': datetime
 	}

@@ -1,0 +1,4 @@
+{
+	"users": [{"name" : "joe"}, {"name": "ilan"}, {"name": "dan"}], 
+	"choices": [{"chinese": 0.4}, { "masala": 0.6 }]
+}

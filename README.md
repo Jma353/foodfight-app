@@ -5,6 +5,7 @@ Backend system supporting collaborative restaurant recommendation app
 Made as part of AT&T June 2016 Hackathon (NYC)
 
 **Base URL:** `foodfight-app.herokuapp.com/`
+** For demo, running it locally due to Socket.IO issues on Heroku ** 
 
 
 ## Virtual Environment Setup
@@ -56,6 +57,7 @@ Run the following:
 mkdir -p data/db # to setup document directory for MongoDB 
 mongod --dbpath data/db 
 ```
+
 
 
 
