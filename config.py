@@ -9,7 +9,6 @@ class Config(object):
 	CSRF_ENABLED = True 
 	CSRF_SESSION_KEY = "secret"
 	SECRET_KEY = os.environ['SECRET_KEY']
-	SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 	THREADS_PER_PAGE = 2
 
 
@@ -25,6 +24,9 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
 	DEVELOPMENT = True 
 	DEBUG = True 
+	MONGODB_HOST = 'localhost'
+	MONGODB_PORT = 27017
+	MONGODB_DATABASE = 'foodfight-app'
 
 
 class TestingConfig(Config):

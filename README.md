@@ -4,7 +4,7 @@ Backend system supporting collaborative restaurant recommendation app
 
 Made as part of AT&T June 2016 Hackathon (NYC)
 
-**Base URL:** `http://pushforfood.herokuapp.com/`
+**Base URL:** `foodfight-app.herokuapp.com/`
 
 
 ## Virtual Environment Setup
@@ -53,12 +53,8 @@ export DATABASE_URL="postgresql://localhost/sample_db"
 Run the following: 
 
 ```bash
-# Enter postgres command line interface 
-$ psql 
-# Create your database
-CREATE DATABASE pushforfood_db; 
-# Quit out 
-\q 
+mkdir -p data/db # to setup document directory for MongoDB 
+mongod --dbpath data/db 
 ```
 
 
