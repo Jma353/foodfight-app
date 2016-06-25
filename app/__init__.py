@@ -1,9 +1,17 @@
+# GEvent needed for sockets (must patch server before anything else)
+from gevent import monkey 
+monkey.patch_all() 
+
 # Standard imports 
 from datetime import datetime 
 import re 
+import os 
 
 # All flask imports 
 from flask import Flask, request, render_template, redirect, url_for, jsonify 
+
+# SocketIO for Flask 
+from flask_socketio import SocketIO 
 
 # MongoDB imports 
 from flask_mongokit import MongoKit, Document
@@ -11,6 +19,7 @@ from flask_mongokit import MongoKit, Document
 # App init 
 app = Flask(__name__)
 app.debug = True 
+app.config.from_object(os.environ["APP_SETTINGS"])
 
 # User class (will not be placed here permanently)
 class User(Document):
@@ -67,8 +76,9 @@ def destroy_users():
 	return jsonify({ 'success' : true })
 
 
-if __name__ == "__main__":
-	app.run()
+# Init socketio 
+socketio = SocketIO()
+socketio.init_app(app)
 
 
 
@@ -76,4 +86,5 @@ if __name__ == "__main__":
 
 
 
-	
+
+

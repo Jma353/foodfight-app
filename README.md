@@ -1,4 +1,4 @@
-# Push for Food Backend 
+# FoodFight Backend 
 
 Backend system supporting collaborative restaurant recommendation app
 
