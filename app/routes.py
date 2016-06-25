@@ -29,11 +29,17 @@ def create_user():
 	return user.to_json() 
 
 
+# Destory users endpoint 
 @app.route('/users/destroy', methods=['POST'])
 def destroy_users(): 
 	# Remove users 
 	db.User.remove()
 	return jsonify({ 'success' : true })
+
+
+# JSONs for socket searching 
+az_json = read_json('./arizona_bus_info.json')
+az_id_json = read_json('./arizona_id_to_name.json')
 
 
 # Socket testing 
@@ -45,10 +51,17 @@ def ws_conn():
 def ws_disconn(): 
 	socketio.emit('msg', "Someone disconnected", namespace='/main')
 
-@socketio.on('new-user', namespace='/main')
-def chat(chat):
-	print chat
-	socketio.emit('new-user', chat, namespace="/main")
+@socketio.on('query', namespace='/main')
+def chat(query):
+	# query is a string 
+
+
+	socketio.emit('query-results', , namespace="/main")
+
+
+
+
+
 
 
 

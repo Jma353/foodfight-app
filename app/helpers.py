@@ -3,6 +3,8 @@ from flask import request
 from yelp.client import Client
 from yelp.oauth1_authenticator import Oauth1Authenticator
 import io, requests
+import json
+from pprint import pprint
 
 # Function to determine if a request is an API request for JSON or a standard resource request
 # Credit: http://flask.pocoo.org/snippets/45/
@@ -13,6 +15,14 @@ def request_for_json():
 		request.accept_mimetypes['text/html']
 
 
+# Function to read in JSON 
+def read_json(path): 
+	with open(path) as json_data: 
+		d = json.load(json_data)
+		json_data.close() 
+		return d 
+
+
 # Yelp auth + client init 
 auth = Oauth1Authenticator(
 	consumer_key=os.environ['YELP_CONSUMER_KEY'],
@@ -21,6 +31,7 @@ auth = Oauth1Authenticator(
 	token_secret=os.environ['YELP_TOKEN_SECRET']
 )
 
+# Yelp client for querying 
 client = Client(auth)
 
 def yelpApiCoordinates(lat, long, params):
@@ -57,8 +68,6 @@ def getYelpInfo(lat, long, term):
 		"review": review.business.reviews[0].excerpt
 	});
 	return responses
-
-
 
 
 
