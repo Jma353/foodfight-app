@@ -11,10 +11,23 @@
 	<body>
 		<h1>Hello world</h1> 
 
+		<h4>Add a user here:</h4> 
+
+
+		<form action="">
+			<label>Name</label> </br> 
+			<input id="name"/> </br> 
+			<label>Email</label> </br> 
+			<input id="email"/> </br> 
+			<button>Send</button>
+		</form>
+
 		<h4>The following users exist:</h4> 
 		<ul id="users">
 
 		</ul>
+
+
 
 		<!-- JS start --> 
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -25,6 +38,8 @@
 				// To make an AJAX request for JSON resources 
 				var users = []; 
 
+
+				// AJAX to obtain USER list 
 				$.ajax({
 					dataType: "json", 
 					url: window.hostname,
@@ -35,9 +50,38 @@
 						}); 
 					}
 				}); 	
+
+				// Socket communication 
+				var socket = io.connect(window.hostname + "/users"); 
+
+				$("form").submit(function () {
+					// Grab name values + construct JSON 
+					var name = $('#name').val();
+					var email = $('#email').val(); 
+					var userJSON = { user: { name: name, email: email }}; 
+
+					// Emit socket info 
+					socket.emit('users', userJSON);
+
+					// Clear these values 
+					$('#name').val('');
+					$('#email').val(''); 
+				}); 
+
+				
+
+
+
+
+
 			}); 
 
 		</script>
 	</body> 
 
 </html> 
+
+
+
+
+

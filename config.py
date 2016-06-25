@@ -20,6 +20,7 @@ class ProductionConfig(Config):
 	MONGODB_USERNAME = os.environ['MONGODB_USERNAME']
 	MONGODB_PASSWORD = os.environ['MONGODB_PASSWORD'] 
 
+
 class StagingConfig(Config):
 	DEVELOPMENT = True 
 	DEBUG = True 
