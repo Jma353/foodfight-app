@@ -27,7 +27,7 @@
 
 				$.ajax({
 					dataType: "json", 
-					url: "http://localhost:5000/",
+					url: window.location.hostname + "/",
 					success: function (data) {
 						users = data; 
 						data.forEach(function (u) {

@@ -19,10 +19,12 @@ from flask_socketio import SocketIO
 # MongoDB imports 
 from flask_mongokit import MongoKit, Document
 
+
 # App init 
 app = Flask(__name__)
 app.debug = True 
 app.config.from_object(os.environ["APP_SETTINGS"])
+
 
 # User class (will not be placed here permanently)
 class User(Document):
@@ -42,11 +44,10 @@ class User(Document):
 	default_values = { 'created_at': datetime.utcnow, 'updated_at': datetime.utcnow }
 	use_dot_notation = True
 
+
 # Init db + register documents
 db = MongoKit(app)
 db.register([User])
-
-
 
 
 # Test route to receive users 
