@@ -9,7 +9,7 @@
 	</head> 
 
 	<body>
-		<h1>Hello world</h1> 
+		<h1>Food Fight Admin</h1> 
 
 		<h4>Add a user here:</h4> 
 
@@ -23,9 +23,9 @@
 		</form>
 
 		<h4>The following users exist:</h4> 
-		<ul id="users">
+		<div id="users">
 
-		</ul>
+		</div>
 
 
 		<h4>Query:</h4> 
@@ -52,10 +52,26 @@
 					success: function (data) {
 						users = data; 
 						data.forEach(function (u) {
-							$('#users').append($('<li>').text(u.name + " | " + u.email)); 
+
+							$('#users').append($('<p>').text(u.name + " | " + u.email)); 
+
+							/*
+							$.ajax({ 
+								dataType: "json", 
+								url: document.location.origin + "/users/user_pref/" + u.name, 
+								success: function (data) {
+
+								}
+							})
+
+							*/
+
+
 						}); 
 					}
 				}); 	
+
+
 
 				// Socket init 
 				var url = "http://" + document.domain + ":" + location.port; 
@@ -79,12 +95,10 @@
 				}); 
 
 
-				$("form.query").submit(function (e) {
-					e.preventDefault(); 
+				$("#q").on('keypress', function (e) {
 					var q = $('#q').val(); 
 					console.log(q); 
 					socket.emit('query', q); 
-					$('#q').val(''); 
 					$('#searchresults').empty(); 
 				}); 
 

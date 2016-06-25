@@ -149,14 +149,14 @@ def find_similar(input_weights,liked,disliked,latitude,longitude):
             relevant = [i for i in liked if i!=liked[indx]]
             for elem in bus_recommender(liked[indx],liked,disliked):
                 result_list[elem[0]].append(elem[1]*30)
-    dist = {}
-    for key, value in bus_location.iteritems():
-        dist[key] = distance((latitude,longitude), value)
-    sorted_result = sorted(dist.items(), key=operator.itemgetter(1), reverse=True)
+    # dist = {}
+    # for key, value in bus_location.iteritems():
+    #     dist[key] = distance((latitude,longitude), value)
+    # sorted_result = sorted(dist.items(), key=operator.itemgetter(1), reverse=True)
     
-    for dist_tup in sorted_result:
-        result_list[dist_tup[0]].append(((dist_tup[1]-sorted_result[-1][1])/sorted_result[0][1])*algo_distance)
+    # for dist_tup in sorted_result:
+    #     result_list[dist_tup[0]].append(((dist_tup[1]-sorted_result[-1][1])/sorted_result[0][1])*algo_distance)
     final_result = {}
     for k,v in result_list.iteritems():
         final_result[k] = sum(v)
-    return [(bus_id_to_name[k], v) for k,v in sorted(final_result.items(), key=operator.itemgetter(1), reverse=True)[0:5]]
+    return sorted(final_result.items(), key=operator.itemgetter(1), reverse=True)[0:5]

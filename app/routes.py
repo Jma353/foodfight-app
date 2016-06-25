@@ -66,13 +66,29 @@ def add_pref():
 	user.save() 
 
 	return jsonify({ 'success': True, 'user' : json.loads(user.to_json()) })
+"""
+@app.route('/users/user_pref/<string:name>', methods=['GET'])
+def get_prefs(name):
+	# Grab the user
+	user = db.User.find_one(name)
 
+	likes = []
+	for rest_id in user['likes']:
+		likes.append(restaurant_json()[rest_id])
+			
+	dislikes = []
+	for rest_id in user['dislikes']: 
+		dislikes.append(restaurant_json()[rest_id])
+
+	return jsonify({ 'likes' : likes, 'dislikes' : dislikes })
+"""
 
 @app.route('/choices/recommend', methods=['POST'])
 def return_prefs(): 
 
 	# choice_JSON 
 	choices = request.get_json()['choices']
+	print choices 
 
 	# Array of users' names 
 	users = request.get_json()['users']
@@ -91,7 +107,7 @@ def return_prefs():
 		rest = restaurant_json()[rest_id]
 		restaurants.append(rest)
 
-	return jsonify({ 'success': True, 'suggestions': json.dumps(restaurants) })
+	return jsonify({ 'success': True, 'suggestions': restaurants })
 
 
 # Destory users endpoint 
