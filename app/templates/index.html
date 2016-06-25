@@ -47,10 +47,10 @@
 						}); 
 					}
 				}); 	
- 
-				// Socket init 
-				var socket = io.connect(window.location.origin + "/main"); 
 
+				// Socket init 
+				var url = "http://" + document.domain + ":" + location.port; 
+				var socket = io.connect(url + '/main');
 
 				// Socket emit
 				$("form").submit(function (e) {
