@@ -4,11 +4,40 @@
 	<head>
 		<style type="text/css">
 			html { font-family: "Avenir" !important; }
+			#users { list-style: none; }
 		</style> 
 	</head> 
 
 	<body>
 		<h1>Hello world</h1> 
+
+		<h4>The following users exist:</h4> 
+		<ul id="users">
+
+		</ul>
+
+		<!-- JS start --> 
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script>
+
+			$(document).ready(function () {
+				// To make an AJAX request for JSON resources 
+				var users = []; 
+
+				$.ajax({
+					dataType: "json", 
+					url: "http://localhost:5000/",
+					success: function (data) {
+						users = data; 
+						data.forEach(function (u) {
+							$('#users').append($('<li>').text(u.name + " | " + u.email)); 
+						}); 
+					}
+				}); 	
+			}); 
+
+		</script>
 	</body> 
 
 </html> 

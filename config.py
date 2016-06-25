@@ -14,7 +14,7 @@ class Config(object):
 
 class ProductionConfig(Config):
 	DEBUG = False 
-
+	MONGODB_HOST = os.environ['MONGODB_URI']
 
 class StagingConfig(Config):
 	DEVELOPMENT = True 
@@ -24,7 +24,7 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
 	DEVELOPMENT = True 
 	DEBUG = True 
-	MONGODB_HOST = 'localhost'
+	MONGODB_HOST = os.environ['MONGODB_URI']
 	MONGODB_PORT = 27017
 	MONGODB_DATABASE = 'foodfight-app'
 

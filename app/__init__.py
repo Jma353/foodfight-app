@@ -6,6 +6,9 @@ monkey.patch_all()
 from datetime import datetime 
 import re 
 import os 
+from helpers import * 
+import json 
+from bson import json_util 
 
 # All flask imports 
 from flask import Flask, request, render_template, redirect, url_for, jsonify 
@@ -44,12 +47,17 @@ db = MongoKit(app)
 db.register([User])
 
 
+
+
 # Test route to receive users 
 @app.route('/', methods=['GET'])
 def show_users():	
-	# Retrieve users 
-	users = db.User.find() 
-	return render_template("index.html")
+	if request_for_json():
+		# Query users + respond with JSON 
+		users = list(db.User.find())
+		return json.dumps(users, default=json_util.default)
+	else: 
+		return render_template("index.html")
 
 
 # Test route to create users 
