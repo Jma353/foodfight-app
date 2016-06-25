@@ -1,8 +1,10 @@
 # Push for Food Backend 
 
-Backend system supporting collaborative restaurant recommendation app.
+Backend system supporting collaborative restaurant recommendation app
 
-Made as part of AT&T June 2016 Hackathon (NYC).
+Made as part of AT&T June 2016 Hackathon (NYC)
+
+**Base URL:** `http://pushforfood.herokuapp.com/`
 
 
 ## Virtual Environment Setup
@@ -42,19 +44,9 @@ touch .env
 The `.env` file is where you can declare environment variables specific to this app.  These variables are loaded on `cd`-ing into the directory with the `.env` file.  Your `.env` file should look like this.  
 
 ```python
-source venv/bin/activate 
 export APP_SETTINGS="sample_settings_string"
 export DATABASE_URL="postgresql://localhost/sample_db"
 ... 
-```
-
-The top line allows you to activate your virtual environment on `cd`-ing into the directory.  The rest are variable strings. 
-
-Finally, run the following to finalize `autoenv` setup: 
-
-```bash
-echo "source `which activate.sh`" >> ~/.bashrc
-source ~/.bashrc 
 ```
 
 ## DB Setup 
