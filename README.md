@@ -4,6 +4,10 @@ Backend system supporting collaborative restaurant recommendation app
 
 Made as part of AT&T June 2016 Hackathon (NYC)
 
+For iOS app associated with this backend, look [here](https://github.com/dantheli/Pushforfood-ios)
+
+Awarded 3rd place
+
 **Base URL:** `foodfight-app.herokuapp.com/`
 ** For demo, running it locally due to Socket.IO issues on Heroku ** 
 
